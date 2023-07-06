@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <title>Sleep detection</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            h1{
+                font-size: 70px;
+                text-align: center;
+                align-items: center; 
+                font-weight: bold;
+                padding-top: 1.5%;
+                padding-bottom:1.5%;
+                }
+        
+            #wrapper{
+                min-width: 1200px;
+                max-width: 1480px;
+                background-color:#18dddd;
+                text-align: center;
+                align-items: center; 
+            }
+        
+            nav{
+            
+                font-weight: bold;
+                padding-left: 27%;
+                padding-right: 27%;
+                padding-top: 1.5%;
+                padding-bottom:1.5%;
+                background-color:rgb(33, 29, 29);
+                font-size: 1.2em;
+                border-top: 0em;
+                text-align: center;
+                align-items: center;  
+            }
+            
+            nav a {
+                text-decoration: none ;
+                text-align: center;
+                font-weight: bold;
+                padding: 0.5em;
+                margin-bottom: 1em;
+                float:none;
+            }
+            
+            nav a:link{
+                color: #0c3273;
+            }
+            
+            nav a:visited{
+                color: #0a9393;
+            }
+            
+            nav a:hover{
+                color: #A26100;
+                background-color: #2a2f30;
+                border: none;
+                border-radius: 10px;
+            }
+
+            .info-box {
+                background-color: #f2f2f2;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+             
+            
+            .info-box h3 {
+                font-size: 24px;
+                margin-top: 0;
+            }
+              
+            .info-box h2 {
+                font-size: 16px;
+                line-height: 1.5;
+            }              
+            img{
+                align-items: center;
+                }
+
+            .highlight img {
+                align-items: center;
+            }
+
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+              }
+        </style>
+    </head>
+
+    <body class="wrapper">
+        <div class ="heading">
+        <h1 style="background-color:rgb(49, 177, 232); margin-bottom: 0; padding-top: 2%">Drowsiness Detection</h1>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+            <a class="nav-link active" aria-current="page" href="index">Home</a>
+                  
+            <a class="nav-link" href="/features/">Features</a>
+          
+            <a class="nav-link" href="/prices/">Pricing</a>
+        </nav>
+        <div class="code">
+            <py-script src="rough.py"></py-script>
+        </div>
+
+        <div class="info-box">
+            <h3>
+                This application has a backend code that runs in python.
+                For the python code I have used libraries such as cv2, dlib,
+                math and playsound. I used my laptop camera for live video
+                capturing using cv2. There is an inbuilt library in dlib called
+                shape predictor that can recognize the face using 68 facial
+                landmarks which basically recognize the border regions of
+                human face, eyes, nose and mouth using 68 individual points.
+                Below is a figure which shows 68(x, y)-coordinates of dlib’s
+                facial landmark detector. <br>
+                <div class="highlight">
+                <img src="https://miro.medium.com/v2/resize:fit:600/1*tn5D7BMcvq57-T8qy7_tUQ.png" class="center"><br>
+                </div>
+                These annotations are part of the 68 point iBUG 300-W
+                dataset which the dlib facial landmark predictor was trained
+                on.<br>
+                Out of these 68 points the only ones required to detect
+                human eye starts from number 37 to 42 for right eye and
+                43 to 48 for the left eye. So I had to use two separate loops
+                one for each eye so that I can join the each consecutive points
+                of an eye together via forming lines using cv2. Also out of
+                the 6 points forming the eye I have just used 4 points making
+                a square leaving the both side ones of each eye. After joining
+                those 4 consecutive points of each eye, I calculated the area
+                covered by square formed by those 4 points. After getting area
+                for individual eyes I averaged the value of both areas. Later I
+                had tested my program using different backgrounds and found
+                out that my the threshold value of average area when my both
+                eyes were closed comes out to be 135. So I used this value
+                as my threshold value and implemented my python code to
+                play an alarm sound whenever the average value for area goes
+                below threshold value.
+            </h3  >
+          </div>
+        <div class="container">
+            
+        </div>
+    </body>
+</html>
